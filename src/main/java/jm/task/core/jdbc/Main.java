@@ -20,7 +20,8 @@ public class Main {
         allUsers.forEach(System.out::println);
 
         service.removeUserById(1);
-        service.cleanUsersTable();
         service.dropUsersTable();
+        service.cleanUsersTable();
+
     }
 }

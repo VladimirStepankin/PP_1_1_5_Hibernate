@@ -13,9 +13,9 @@ public class Util {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(DB_URL, DB_LOGIN, DB_PASSWORD);
+            System.out.println("Connecting to BD is successful");
         } catch (SQLException e) {
-            System.err.println("Failed to establish connection");
-            e.printStackTrace();
+            System.out.println("An error occurred while connecting to BD" + e.getMessage());
         }
         return connection;
     }
