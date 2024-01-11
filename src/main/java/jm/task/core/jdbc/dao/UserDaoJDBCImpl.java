@@ -32,7 +32,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void dropUsersTable() {
         try {
             try (Statement statement = connection.createStatement()) {
-                statement.execute("DROP TABLE IF EXISTS users_db.users");
+                statement.execute("DROP TABLE IF EXISTS users");
             }
         } catch (SQLException e) {
             System.out.println("An error occurred while deleting the table" + e.getMessage());
@@ -42,7 +42,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void saveUser(String name, String lastName, byte age) {
         try {
-            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO users_db.users" +
+            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO users" +
                     " (name, lastName, age) VALUES (?, ?, ?)")) {
                 statement.setString(1, name);
                 statement.setString(2, lastName);
@@ -72,7 +72,7 @@ public class UserDaoJDBCImpl implements UserDao {
         List<User> userList = new ArrayList<>();
         try {
             try (Statement statement = connection.createStatement()) {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM users_db.users");
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
                 while (resultSet.next()) {
                     User user = new User();
                     user.setId(resultSet.getLong("id"));
@@ -91,7 +91,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void cleanUsersTable() {
         try {
             try (Statement statement = connection.createStatement()) {
-                statement.executeUpdate("TRUNCATE TABLE users_db.users");
+                statement.executeUpdate("TRUNCATE TABLE users");
             }
         } catch (SQLException e) {
             System.out.println("An error occurred while clearing the table" + e.getMessage());
