@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) {
         UserServiceImpl service = new UserServiceImpl();
 
+        service.dropUsersTable();
         service.createUsersTable();
 
         service.saveUser("Name1", "LastName1", (byte) 20);
@@ -20,7 +21,6 @@ public class Main {
         allUsers.forEach(System.out::println);
 
         service.removeUserById(1);
-        service.dropUsersTable();
         service.cleanUsersTable();
 
     }
