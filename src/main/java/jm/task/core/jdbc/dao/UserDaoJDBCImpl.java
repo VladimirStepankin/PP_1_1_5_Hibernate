@@ -13,15 +13,16 @@ public class UserDaoJDBCImpl implements UserDao {
 
     final private Connection connection = Util.getConnection();
 
+    @Override
     public void createUsersTable() {
         try {
             try (Statement statement = connection.createStatement()) {
                 statement.execute("CREATE TABLE IF NOT EXISTS users (" +
-                        "  id INT NOT NULL AUTO_INCREMENT," +
-                        "  name VARCHAR(50)," +
-                        "  lastName VARCHAR(50)," +
-                        "  age TINYINT," +
-                        "  PRIMARY KEY (id));");
+                                  "  id INT NOT NULL AUTO_INCREMENT," +
+                                  "  name VARCHAR(50)," +
+                                  "  lastName VARCHAR(50)," +
+                                  "  age TINYINT," +
+                                  "  PRIMARY KEY (id));");
             }
         } catch (SQLException e) {
             System.out.println("An error occurred while creating the table" + e.getMessage());
@@ -29,6 +30,7 @@ public class UserDaoJDBCImpl implements UserDao {
         System.out.println("DB created successful by JDBC");
     }
 
+    @Override
     public void dropUsersTable() {
         try {
             try (Statement statement = connection.createStatement()) {
@@ -40,10 +42,11 @@ public class UserDaoJDBCImpl implements UserDao {
         System.out.println("The table was deleted successfully");
     }
 
+    @Override
     public void saveUser(String name, String lastName, byte age) {
         try {
             try (PreparedStatement statement = connection.prepareStatement("INSERT INTO users" +
-                    " (name, lastName, age) VALUES (?, ?, ?)")) {
+                                                                           " (name, lastName, age) VALUES (?, ?, ?)")) {
                 statement.setString(1, name);
                 statement.setString(2, lastName);
                 statement.setByte(3, age);
@@ -55,6 +58,7 @@ public class UserDaoJDBCImpl implements UserDao {
         System.out.println("User c именем - " + name + " добавлен в базу данных");
     }
 
+    @Override
     public void removeUserById(long id) {
         try {
             try (PreparedStatement statement = connection.prepareStatement(
@@ -68,6 +72,7 @@ public class UserDaoJDBCImpl implements UserDao {
         System.out.println("User c id - " + id + " удален из базы данных");
     }
 
+    @Override
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
         try {
@@ -88,6 +93,7 @@ public class UserDaoJDBCImpl implements UserDao {
         return userList;
     }
 
+    @Override
     public void cleanUsersTable() {
         try {
             try (Statement statement = connection.createStatement()) {
